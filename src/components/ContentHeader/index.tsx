@@ -12,7 +12,6 @@ const ContentHeader: React.FC<IContentHeaderProps> = ({
   lineColor,
   children,
 }) => {
-  const options = [{ value: "Rich", label: "rich" }];
   return (
     <Container>
       <TitleContainer lineColor={lineColor}>

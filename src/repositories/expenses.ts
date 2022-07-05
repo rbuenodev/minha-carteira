@@ -20,6 +20,7 @@ export default [
   {"description":"Compras do mês",        "amount":"800.50","type":"saída","frequency":"recorrente","date":"2022-03-17"},
   {"description":"Parcela do Celular 2/5","amount":"150.99","type":"saída","frequency":"eventual",  "date":"2022-03-18"},
   {"description":"Troca de Oléo do carro","amount":"90.00", "type":"saída","frequency":"eventual",  "date":"2022-03-23"},
+  {"description":"Troca de pneu do carro","amount":"861.67", "type":"saída","frequency":"eventual",  "date":"2022-03-23"},
   {"description":"Energia elétrica",      "amount":"75.99", "type":"saída","frequency":"recorrente","date":"2022-04-10"},
   {"description":"Água",                  "amount":"80.33", "type":"saída","frequency":"recorrente","date":"2022-04-15"},
   {"description":"Telefone",              "amount":"99.99", "type":"saída","frequency":"recorrente","date":"2022-04-23"},
