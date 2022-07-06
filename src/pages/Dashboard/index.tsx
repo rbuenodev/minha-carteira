@@ -10,6 +10,7 @@ import MessageBox from "../../components/MessageBox";
 import happyImg from "../../assets/happy.svg";
 import sadImg from "../../assets/sad.svg";
 import grinningImg from "../../assets/grinning.svg";
+import CustomPieChart from "../../components/CustomPieChart";
 
 const Dashboard: React.FC = () => {
   const [monthSelected, setMonthSelected] = useState<number>(
@@ -35,7 +36,7 @@ const Dashboard: React.FC = () => {
         label: year,
       };
     });
-  }, []);
+  }, [expenses, gains]);
 
   const months = useMemo(() => {
     return monthsList.map((month, index) => {
@@ -114,6 +115,27 @@ const Dashboard: React.FC = () => {
     }
   }, [totalBalance]);
 
+  const relationExpensesVsGains = useMemo(() => {
+    const total = totalGains + totalExpenses;
+    const gainsPercent = (totalGains / total) * 100;
+    const expensesPercent = (totalExpenses / total) * 100;
+    const data = [
+      {
+        name: "Entradas",
+        value: totalGains,
+        percent: Number(expensesPercent.toFixed(1)),
+        color: "#e44c4e",
+      },
+      {
+        name: "Saídas",
+        value: totalExpenses,
+        percent: Number(gainsPercent.toFixed(1)),
+        color: "#f7931b",
+      },
+    ];
+    return data;
+  }, [totalGains, totalExpenses]);
+
   const handleMonthSelected = (month: string) => {
     try {
       const parseMonth = Number(month);
@@ -173,7 +195,8 @@ const Dashboard: React.FC = () => {
           description={message.description}
           footerText={message.footerText}
           icon={message.icon}
-        ></MessageBox>
+        />
+        <CustomPieChart data={relationExpensesVsGains} />
       </Content>
     </Container>
   );
