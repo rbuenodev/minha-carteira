@@ -16,10 +16,11 @@ const CustomPieChart: React.FC<ICustomPieChartProps> = ({ data }) => (
   <Container>
     <LeftSide>
       <h2>Relação</h2>
+
       <SubtittleContainer>
         {data.map((indicator) => (
           <Subtittle key={indicator.name} color={indicator.color}>
-            <div>{indicator.percent}</div>
+            <div>{indicator.percent >= 0 ? indicator.percent : 0}%</div>
             <span>{indicator.name}</span>
           </Subtittle>
         ))}

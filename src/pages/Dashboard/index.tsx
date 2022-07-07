@@ -11,6 +11,7 @@ import happyImg from "../../assets/happy.svg";
 import sadImg from "../../assets/sad.svg";
 import grinningImg from "../../assets/grinning.svg";
 import CustomPieChart from "../../components/CustomPieChart";
+import HistoryBox from "../../components/HistoryBox";
 
 const Dashboard: React.FC = () => {
   const [monthSelected, setMonthSelected] = useState<number>(
@@ -36,7 +37,7 @@ const Dashboard: React.FC = () => {
         label: year,
       };
     });
-  }, [expenses, gains]);
+  }, []);
 
   const months = useMemo(() => {
     return monthsList.map((month, index) => {
@@ -124,17 +125,71 @@ const Dashboard: React.FC = () => {
         name: "Entradas",
         value: totalGains,
         percent: Number(expensesPercent.toFixed(1)),
-        color: "#e44c4e",
+        color: "#f7931b",
       },
       {
         name: "Saídas",
         value: totalExpenses,
         percent: Number(gainsPercent.toFixed(1)),
-        color: "#f7931b",
+        color: "#e44c4e",
       },
     ];
     return data;
   }, [totalGains, totalExpenses]);
+
+  const historyData = useMemo(() => {
+    return monthsList
+      .map((_, month) => {
+        let amountInput = 0;
+        gains.forEach((gain) => {
+          const date = new Date(gain.date);
+          const gainMonth = date.getMonth();
+          const gainYear = date.getFullYear();
+
+          if (gainMonth === month && gainYear === yearSelected) {
+            try {
+              amountInput += Number(gain.amount);
+            } catch {
+              throw new Error(
+                "amountInput is invalid. amountInput must be valid number."
+              );
+            }
+          }
+        });
+
+        let amountOutput = 0;
+        expenses.forEach((expense) => {
+          const date = new Date(expense.date);
+          const expenseMonth = date.getMonth();
+          const expenseYear = date.getFullYear();
+
+          if (expenseMonth === month && expenseYear === yearSelected) {
+            try {
+              amountOutput += Number(expense.amount);
+            } catch {
+              throw new Error(
+                "amountOutput is invalid. amountOutput must be valid number."
+              );
+            }
+          }
+        });
+
+        return {
+          monthNumber: month,
+          month: monthsList[month].substring(0, 3),
+          amountInput,
+          amountOutput,
+        };
+      })
+      .filter((item) => {
+        const currentMonth = new Date().getMonth();
+        const currentYear = new Date().getFullYear();
+        return (
+          (yearSelected === currentYear && item.monthNumber <= currentMonth) ||
+          yearSelected < currentYear
+        );
+      });
+  }, [yearSelected]);
 
   const handleMonthSelected = (month: string) => {
     try {
@@ -197,6 +252,11 @@ const Dashboard: React.FC = () => {
           icon={message.icon}
         />
         <CustomPieChart data={relationExpensesVsGains} />
+        <HistoryBox
+          data={historyData}
+          lineColorAmountInput="#f7931b"
+          lineColorAmountOutput="#e44c4e"
+        ></HistoryBox>
       </Content>
     </Container>
   );
