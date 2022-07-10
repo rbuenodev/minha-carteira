@@ -12,12 +12,32 @@ export const Container = styled.div`
   color: ${(props) => props.theme.colors.white};
   border-radius: 7px;
   display: flex;
+
+  @media (max-width: 770px) {
+    display: flex;
+    width: 100%;
+  }
 `;
 
 export const LeftSide = styled.aside`
   padding: 30px 20px;
   > h2 {
     margin-bottom: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 0 15px 5px;
+    margin-bottom: 7px;
+
+    > h2 {
+      margin-top: 15px;
+      margin-bottom: 7px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    padding: 15px;
+    margin-bottom: 7px;
   }
 `;
 
@@ -36,6 +56,21 @@ export const SubtittleContainer = styled.ul`
   }
   ::-webkit-scrollbar-track {
     background-color: ${(props) => props.theme.colors.tertiary};
+  }
+
+  @media (max-width: 1200px) {
+    font-size: 14px;
+    margin: 3px 0;
+
+    > div {
+      width: 35px;
+      height: 35px;
+      line-height: 35px;
+    }
+
+    > span {
+      margin-left: 7px;
+    }
   }
 `;
 
@@ -57,10 +92,19 @@ export const Subtittle = styled.li<ISubtitleProps>`
   > span {
     margin-left: 5px;
   }
+
+  @media (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const RightSide = styled.main`
   display: flex;
   flex: 1;
   justify-content: center;
+
+  @media (max-width: 1200px) {
+    height: 100%;
+  }
 `;

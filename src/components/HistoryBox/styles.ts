@@ -1,8 +1,24 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 interface ISubtitleProps {
   color: string;
 }
+
+const animate = keyframes`
+  0%{
+    transform: translateX(-100px);
+    opacity: 0;
+
+  }
+  50%{
+    opacity: 0.3;
+
+  }
+  100%{
+    transform: translateX(0px);
+    opacity: 1;
+  } 
+`;
 
 export const Container = styled.div`
   width: 100%;
@@ -15,6 +31,8 @@ export const Container = styled.div`
   margin: 10px 0;
   padding: 30px 20px;
   border-radius: 7px;
+
+  animation: ${animate} 0.5s;
 `;
 
 export const ChartContainer = styled.div`
@@ -26,9 +44,14 @@ export const Header = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
   > h2 {
     margin-bottom: 20px;
     padding-left: 17px;
+  }
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
   }
 `;
 
@@ -56,5 +79,13 @@ export const Subtittle = styled.li<ISubtitleProps>`
 
   > span {
     margin-left: 5px;
+  }
+
+  @media (max-width: 1200px) {
+    margin-left: 17px;
+    > div {
+      width: 30px;
+      height: 30px;
+    }
   }
 `;

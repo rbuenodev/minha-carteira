@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Header,
@@ -6,6 +6,9 @@ import {
   MenuContainer,
   MenuItemLink,
   Title,
+  MenuItemButton,
+  ToggleMenu,
+  ThemeToggleFooter,
 } from "./styles";
 import logoImg from "../../assets/logo.svg";
 import {
@@ -13,17 +16,43 @@ import {
   MdArrowDownward,
   MdArrowUpward,
   MdExitToApp,
+  MdClose,
+  MdMenu,
 } from "react-icons/md";
 
+import { useAuth } from "../../hooks/auth";
+import { useTheme } from "../../hooks/theme";
+import Toggle from "../Toggle";
+
 const Aside: React.FC = () => {
+  const { singOut } = useAuth();
+  const { toggleTheme, theme } = useTheme();
+
+  const [darkTheme, setDarkTheme] = useState(() =>
+    theme.title === "dark" ? true : false
+  );
+  const [toggleIsMenuOpened, setToggleIsMenuOpened] = useState(false);
+
+  const handleToggleMenu = () => {
+    setToggleIsMenuOpened(!toggleIsMenuOpened);
+  };
+
+  const handleChangeTheme = () => {
+    setDarkTheme(!darkTheme);
+    toggleTheme();
+  };
+
   return (
-    <Container>
+    <Container isMenuOpen={toggleIsMenuOpened}>
       <Header>
+        <ToggleMenu onClick={handleToggleMenu}>
+          {toggleIsMenuOpened ? <MdClose /> : <MdMenu />}
+        </ToggleMenu>
         <LogoImg src={logoImg} alt="Logo"></LogoImg>
         <Title> Carteira </Title>
       </Header>
       <MenuContainer>
-        <MenuItemLink href="/dashboard">
+        <MenuItemLink href="/">
           <MdDashboard />
           Dashboard
         </MenuItemLink>
@@ -41,11 +70,19 @@ const Aside: React.FC = () => {
         </MenuItemLink>
       </MenuContainer>
       <MenuContainer>
-        <MenuItemLink href="#">
+        <MenuItemButton onClick={singOut}>
           <MdExitToApp />
           Sair
-        </MenuItemLink>
+        </MenuItemButton>
       </MenuContainer>
+      <ThemeToggleFooter isMenuOpen={toggleIsMenuOpened}>
+        <Toggle
+          checked={darkTheme}
+          labelLeft="Light"
+          labelRight="Dark"
+          onChange={handleChangeTheme}
+        />
+      </ThemeToggleFooter>
     </Container>
   );
 };

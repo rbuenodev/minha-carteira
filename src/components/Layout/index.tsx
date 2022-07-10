@@ -8,14 +8,12 @@ interface BaseLayoutProps {
   children?: ReactNode;
 }
 
-const Layout: React.FC<BaseLayoutProps> = ({ children }) => {
-  return (
-    <Grid>
-      <MainHeader />
-      <Aside />
-      <Content>{children}</Content>
-    </Grid>
-  );
-};
+const Layout: React.FC<BaseLayoutProps> = ({ children }) => (
+  <Grid>
+    <MainHeader />
+    <Aside />
+    <Content>{children}</Content>
+  </Grid>
+);
 
 export default Layout;

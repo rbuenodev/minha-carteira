@@ -6,8 +6,8 @@ interface BaseLayoutProps {
   children?: ReactNode;
 }
 
-const Content: React.FC<BaseLayoutProps> = ({ children }) => {
-  return <Container>{children}</Container>;
-};
+const Content: React.FC<BaseLayoutProps> = ({ children }) => (
+  <Container>{children}</Container>
+);
 
 export default Content;

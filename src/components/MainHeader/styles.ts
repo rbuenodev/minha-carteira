@@ -14,4 +14,5 @@ export const Profile = styled.div`
   color: ${(props) => props.theme.colors.white};
 `;
 export const Welcome = styled.div``;
+
 export const UserName = styled.span``;
