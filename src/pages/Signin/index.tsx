@@ -6,8 +6,10 @@ import { Container, Form, FormTitle, Logo } from "./styles";
 import { useAuth } from "../../hooks/auth";
 
 const SingIn: React.FC = () => {
-  const [email, setEmail] = useState<string>("teste@email.com");
-  const [password, setPassword] = useState<string>("123");
+  const [email, setEmail] = useState<string>("");
+  // teste@email.com
+  const [password, setPassword] = useState<string>("");
+  // 123
   const { singIn } = useAuth();
 
   return (
